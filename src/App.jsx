@@ -9,6 +9,9 @@ function App() {
       <h1 className="text-3xl font-bold underline text-yellow-300">
       Hello world!
       </h1>
+      <button className='btn-primary'>
+        halo
+      </button>
     </>
   )
 }
