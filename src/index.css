@@ -2,6 +2,167 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Button */
+
+/* button size */
+.btn-small {
+  @apply py-2 px-3 text-xs rounded-lg;
+}
+
+.btn-medium {
+  @apply py-3 px-5 text-base rounded-lg;
+}
+
+.btn-large {
+  @apply py-3.5 px-6 text-lg rounded-lg;
+}
+
+/* ===== */
+
+/* primary button */
 .btn-primary {
-    @apply bg-red-600
+  @apply bg-backgroundBrand text-contentPrimaryInverse;
+}
+
+.btn-primary:hover {
+  @apply bg-backgroundBrandBolder text-contentPrimaryInverse;
+}
+
+.btn-primary:active {
+  @apply bg-backgroundBrand text-contentPrimaryInverse border-2 border-borderBrand;
+}
+
+/* secondary button */
+.btn-secondary {
+  @apply bg-backgroundPrimary text-contentBrand border border-borderBrand;
+}
+
+.btn-secondary:hover {
+  @apply bg-backgroundBrandBolder text-contentBrand border border-borderBrand;
+}
+
+.btn-secondary:active {
+  @apply bg-backgroundBrandBolder text-contentBrand border-2 border-borderBrand;
+}
+
+/* tertiary button */
+.btn-tertiary {
+  @apply bg-backgroundPrimary text-contentBrand border;
+}
+
+.btn-tertiary:hover {
+  @apply bg-backgroundPrimary text-contentBrand border border-borderBrand underline;
+}
+
+.btn-tertiary:active {
+  @apply bg-backgroundBrandBolder text-contentBrand underline;
+}
+
+/* Label */
+.custom-label {
+  @apply text-sm text-contentPrimary mb-1;
+}
+
+/* Input Field */
+.custom-input {
+  @apply py-2.5 px-4 text-base border border-borderPrimary text-contentPrimarySubtle rounded-lg;
+}
+
+.custom-input:focus {
+  @apply py-2.5 px-4 text-base border border-borderBrand text-contentPrimary;
+}
+
+/* Dropdown */
+
+/* Dropdown head */
+.dropdown-head {
+  @apply py-2.5 px-4 text-base border border-borderPrimary text-contentPrimarySubtle rounded-lg;
+}
+
+.dropdown-head:focus {
+  @apply py-2.5 px-4 text-base border border-borderBrand text-contentPrimary;
+}
+
+/* Option styles */
+.dropdown-option {
+  @apply bg-backgroundPrimary text-contentPrimary text-base py-2 px-3;
+}
+
+.dropdown-option:hover {
+  @apply bg-backgroundPrimaryBolder text-contentPrimary;
+}
+
+.dropdown-option:active {
+  @apply bg-backgroundPrimary text-contentBrand;
+}
+
+/* CheckBox */
+
+/* Base styles */
+.custom-checkbox {
+  @apply w-6 h-6 text-contentBrand bg-backgroundPrimaryBolder border-borderPrimary rounded focus:ring-contentBrand focus:ring-2;
+  appearance: none;
+  position: relative;
+}
+
+/* Style checked */
+.custom-checkbox:checked {
+  @apply bg-backgroundBrand border-borderBrand;
+}
+
+/*custom checkmark */
+.custom-checkbox:checked::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.custom-checkbox:focus {
+  @apply outline-none;
+}
+
+/* Radio button */
+.custom-radio {
+  @apply w-6 h-6 bg-backgroundPrimaryBolder border border-borderPrimary rounded-full focus:ring-contentBrand focus:ring-2;
+  appearance: none;
+  position: relative;
+}
+
+/* Style Checked */
+.custom-radio:checked {
+  @apply bg-backgroundBrand border-borderBrand;
+}
+
+/* custom checkmark */
+.custom-radio:checked::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: white;
+  transform: translate(-50%, -50%);
+}
+
+.custom-radio:focus {
+  @apply outline-none;
+}
+
+/* Chip */
+.custom-chip {
+  @apply px-2 py-1 bg-backgroundPrimary border border-borderPrimary text-contentPrimarySubtle text-sm flex items-center justify-between rounded-md;
+}
+
+.custom-chip .chip-icon {
+  @apply text-contentPrimarySubtle ml-2;
 }
