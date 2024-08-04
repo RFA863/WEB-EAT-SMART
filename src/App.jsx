@@ -1,17 +1,11 @@
-import { useState } from 'react'
 import './App.css'
+import Layout from './components/layouts/layout'
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
+    return (
     <>
-      <h1 className="text-3xl font-bold underline text-yellow-300">
-      Hello world!
-      </h1>
-      <button className='btn-primary'>
-        halo
-      </button>
+      <Layout/>
     </>
   )
 }

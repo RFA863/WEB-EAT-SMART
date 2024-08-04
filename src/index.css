@@ -6,7 +6,7 @@
 
 /* button size */
 .btn-small {
-  @apply py-2 px-3 text-xs rounded-lg;
+  @apply py-2 px-3 text-xs rounded;
 }
 
 .btn-medium {
@@ -38,11 +38,11 @@
 }
 
 .btn-secondary:hover {
-  @apply bg-backgroundBrandBolder text-contentBrand border border-borderBrand;
+  @apply bg-backgroundBrandBolder text-contentPrimaryInverse border border-borderBrand;
 }
 
 .btn-secondary:active {
-  @apply bg-backgroundBrandBolder text-contentBrand border-2 border-borderBrand;
+  @apply bg-backgroundBrandBolder text-contentPrimaryInverse border-2 border-borderBrand;
 }
 
 /* tertiary button */
