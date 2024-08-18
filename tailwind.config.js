@@ -28,7 +28,7 @@ export default {
         backgroundBrandSubtlest: '#F6DFBC',
         backgroundInformation: '#4096FF',
         backgroundInformationSubtle: '#BEDEFF',
-        backgroundInformationSubtlest: '#E4F2F',
+        backgroundInformationSubtlest: '#E4F2FF',
         backgroundAlert: '#DC3545',
         backgroundAlertSubtle: '#FFD0D9',
         backgroundAlertSubtlest: '#FFECF1',
