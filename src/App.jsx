@@ -1,19 +1,19 @@
-import { useState } from 'react'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Layout from './components/layouts/layout';
+import Masuk from './pages/masuk';
+import Daftar from './pages/daftar';
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <h1 className="text-3xl font-bold underline text-yellow-300">
-      Hello world!
-      </h1>
-      <button className='btn-primary'>
-        halo
-      </button>
-    </>
-  )
+    return (
+        <Router>
+            <Routes>
+                <Route path="/masuk" element={<Masuk />} />
+                <Route path="/daftar" element={<Daftar />} />
+                <Route path="/*" element={<Layout />} /> {/* Semua route lain menggunakan Layout */}
+            </Routes>
+        </Router>
+    );
 }
 
-export default App
+export default App;

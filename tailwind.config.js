@@ -2,7 +2,7 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     extend: {
@@ -28,7 +28,7 @@ export default {
         backgroundBrandSubtlest: '#F6DFBC',
         backgroundInformation: '#4096FF',
         backgroundInformationSubtle: '#BEDEFF',
-        backgroundInformationSubtlest: '#E4F2F',
+        backgroundInformationSubtlest: '#E4F2FF',
         backgroundAlert: '#DC3545',
         backgroundAlertSubtle: '#FFD0D9',
         backgroundAlertSubtlest: '#FFECF1',
@@ -62,6 +62,8 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }
 
