@@ -14,15 +14,6 @@ function Settings() {
   const [bahanMakanan, setBahanMakanan] = useState([]);
 
   const [getIsDisable, setIsDisable] = useState(true);
-  // const [postData, setPostData] = useState({
-  //   tanggal_lahir: "",
-  //   tinggi: 0,
-  //   berat: 0,
-  //   jeniskelamin: "true",
-  //   aktivitas_id: 0,
-  //   tujuan_diet_id: 0,
-  //   bahan_makanan_id: [],
-  // });
 
   const [profile, setProfile] = useState({
     username: "",
@@ -46,7 +37,6 @@ function Settings() {
       .then((res) => {
         const profileData = res.data.data;
         const bahanMakananDetail = profileData.bahan_makanan_details;
-        // console.log(bahanMakananDetail);
 
         setProfile({
           username: profileData.user.username,
@@ -181,13 +171,13 @@ function Settings() {
 
   return (
     <div className="flex justify-center min-h-screen bg-backgroundPrimaryBolder">
-      <div className="w-full mx-8 my-16 sm:mx-20 md:mx-32 lg:mx-80 p-8 bg-backgroundPrimary rounded-lg">
+      <div className="w-full max-w-4xl mx-4 sm:mx-8 md:mx-16 lg:mx-24 p-8 bg-backgroundPrimary rounded-lg">
         <p className="text-xl font-bold text-contentBrand">Profile Akun</p>
 
         <div className="my-6 text-sm font-medium">
           <form onSubmit={submitData}>
-            <div className="flex items-center justify-around ">
-              <div>
+            <div className="flex flex-col sm:flex-row items-center sm:justify-between">
+              <div className="mb-4 sm:mb-0">
                 <img
                   src={`https://ui-avatars.com/api/?name=${cookies.user}&background=4e73df&color=ffffff&size=150`}
                   className="rounded-full"
@@ -197,13 +187,13 @@ function Settings() {
                   alt="Avatar"
                 />
               </div>
-              <div>
+              <div className="w-full sm:w-auto sm:ml-6">
                 <div className="my-3">
                   <div className="my-1">Username</div>
 
                   <input
                     type="text"
-                    className=" custom-input"
+                    className="w-full sm:w-auto custom-input"
                     value={profile.username}
                     onChange={(e) =>
                       setProfile({ ...profile, username: e.target.value })
@@ -216,8 +206,8 @@ function Settings() {
                   <div className="my-1">E-mail</div>
 
                   <input
-                    type="text"
-                    className=" custom-input"
+                    type="email"
+                    className="w-full sm:w-auto custom-input"
                     value={profile.email}
                     onChange={(e) =>
                       setProfile({ ...profile, email: e.target.value })
@@ -229,24 +219,26 @@ function Settings() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="text-base">Informasi Demografi dan Kesehatan</div>
+            <div className="flex flex-col sm:flex-row items-center justify-between">
+              <div className="text-base mb-4 sm:mb-0">
+                Informasi Demografi dan Kesehatan
+              </div>
               {getIsDisable && (
                 <button
-                  className="bg-contentBrand px-6 py-2 rounded-lg text-white font-medium mr-24"
+                  className="bg-contentBrand px-6 py-2 rounded-lg text-white font-medium"
                   onClick={() => setIsDisable(false)}
                 >
                   Edit Profile
                 </button>
               )}
             </div>
+
             <div className="my-3">
               <div className="my-1">Tanggal Lahir</div>
 
               <input
                 type="date"
-                placeholder="Date"
-                className="w-1/2 custom-input"
+                className="w-full sm:w-1/2 custom-input"
                 value={profile.tanggal_lahir}
                 onChange={(e) => {
                   setProfile({ ...profile, tanggal_lahir: e.target.value });
@@ -259,7 +251,7 @@ function Settings() {
             <div className="my-3">
               <div className="my-1">Jenis Kelamin</div>
 
-              <div className="flex items-center justify-between w-1/2 ">
+              <div className="flex items-center justify-between w-full sm:w-1/2">
                 <div className="flex gap-x-3 items-center">
                   <input
                     type="radio"
@@ -279,7 +271,6 @@ function Settings() {
                   <input
                     type="radio"
                     name="jenisKelamin"
-                    id=""
                     value={"false"}
                     checked={profile.jeniskelamin === "false"}
                     onChange={(e) =>
@@ -293,141 +284,134 @@ function Settings() {
               </div>
             </div>
 
-            <div className="w-3/4 flex justify-between items-center">
-              <div className="my-3">
-                <div className="my-1">Berat Badan</div>
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-y-3 sm:gap-y-0">
+              <div className="w-full sm:w-1/2">
+                <div className="my-3">
+                  <div className="my-1">Berat Badan</div>
 
-                <div className="border border-borderPrimary rounded-lg  flex justify-between items-center focus-within:ring-1 focus-within:ring-blue-500">
-                  <input
-                    type="text"
-                    placeholder="Isi Berat Badan"
-                    className="appearance-none bg-transparent border-none outline-none focus:ring-0"
-                    pattern="[0-9]*"
-                    value={profile.berat}
-                    onChange={(e) =>
-                      setProfile({
-                        ...profile,
-                        berat: Number(e.target.value.replace(/\D/g, "")),
-                      })
-                    }
-                    required
-                    disabled={getIsDisable}
-                  />
-                  <p className="text-black mx-2">Kg</p>
+                  <div className="border border-borderPrimary rounded-lg overflow-hidden flex justify-between items-center custom-input">
+                    <input
+                      type="number"
+                      className="w-full"
+                      value={profile.berat}
+                      onChange={(e) =>
+                        setProfile({ ...profile, berat: e.target.value })
+                      }
+                      required
+                      disabled={getIsDisable}
+                    />
+                    <span className="w-auto px-2">kg</span>
+                  </div>
                 </div>
               </div>
+              <div className="w-full sm:w-1/2">
+                <div className="my-3">
+                  <div className="my-1">Tinggi Badan</div>
 
-              <div className="my-3">
-                <div className="my-1">Tinggi Badan</div>
-
-                <div className="border border-borderPrimary rounded-lg  flex justify-between items-center focus-within:ring-1 focus-within:ring-blue-500">
-                  <input
-                    type="text"
-                    placeholder="Isi Berat Badan"
-                    className="appearance-none bg-transparent border-none outline-none focus:ring-0"
-                    pattern="[0-9]*"
-                    value={profile.tinggi}
-                    onChange={(e) =>
-                      setProfile({
-                        ...profile,
-                        tinggi: Number(e.target.value.replace(/\D/g, "")),
-                      })
-                    }
-                    required
-                    disabled={getIsDisable}
-                  />
-                  <p className="text-black mx-2">Cm</p>
+                  <div className="border border-borderPrimary rounded-lg overflow-hidden flex justify-between items-center custom-input">
+                    <input
+                      type="number"
+                      className="w-full"
+                      value={profile.tinggi}
+                      onChange={(e) =>
+                        setProfile({ ...profile, tinggi: e.target.value })
+                      }
+                      required
+                      disabled={getIsDisable}
+                    />
+                    <span className="w-auto px-2">cm</span>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div className="my-3">
-              <div className="my-1">Aktivitas Harian</div>
-
-              <Select
-                className="w-1/2 border-none"
-                isClearable={true}
-                // isSearchable={true}
-                options={aktivitas}
-                placeholder="Pilih Tingkat Aktivitas Harian Kamu"
-                value={profile.aktivitas_id}
-                onChange={(e) => setProfile({ ...profile, aktivitas_id: e })}
-                required
-                isDisabled={getIsDisable}
-              />
-              <p className="text-xs font-normal text-contentPrimarySubtle">
-                Aktivitas harian dapat berupa (ringan, sedang,dll)
-              </p>
+              <div className="my-1">Aktivitas</div>
+              <div className="border border-borderPrimary rounded-lg overflow-hidden custom-input">
+                <Select
+                  options={aktivitas}
+                  value={profile.aktivitas_id}
+                  onChange={(option) =>
+                    setProfile({ ...profile, aktivitas_id: option })
+                  }
+                  placeholder="Pilih aktivitas"
+                  isDisabled={getIsDisable}
+                  styles={{
+                    control: (baseStyles, state) => ({
+                      ...baseStyles,
+                      border: "none",
+                      outline: "none",
+                      boxShadow: "none",
+                      minHeight: "unset",
+                    }),
+                  }}
+                />
+              </div>
             </div>
-
-            <div className="text-base my-6">Informasi Preferensi Diet</div>
 
             <div className="my-3">
               <div className="my-1">Tujuan Diet</div>
-
-              <Select
-                className="w-1/2 border-none"
-                isClearable={true}
-                // isSearchable={true}
-                options={tujuanDiet}
-                placeholder="Pilih Tujuan Diet Kamu"
-                value={profile.tujuan_diet_id}
-                onChange={(e) => setProfile({ ...profile, tujuan_diet_id: e })}
-                required
-                isDisabled={getIsDisable}
-              />
-              <p className="text-xs font-normal text-contentPrimarySubtle">
-                Tujuan diet dapat berupa (menurunkan berat,dll)
-              </p>
+              <div className="border border-borderPrimary rounded-lg overflow-hidden custom-input">
+                <Select
+                  options={tujuanDiet}
+                  value={profile.tujuan_diet_id}
+                  onChange={(option) =>
+                    setProfile({ ...profile, tujuan_diet_id: option })
+                  }
+                  placeholder="Pilih tujuan diet"
+                  isDisabled={getIsDisable}
+                  styles={{
+                    control: (baseStyles, state) => ({
+                      ...baseStyles,
+                      border: "none",
+                      outline: "none",
+                      boxShadow: "none",
+                      minHeight: "unset",
+                    }),
+                  }}
+                />
+              </div>
             </div>
 
             <div className="my-3">
-              <div className="my-1">Bahan Utama</div>
-
-              <Select
-                className="w-1/2  border-none"
-                isClearable={true}
-                // isSearchable={true}
-                options={bahanMakanan}
-                isMulti
-                closeMenuOnSelect={false}
-                placeholder="Pilih Bahan Utama"
-                value={profile.bahan_makanan_id}
-                onChange={(e) =>
-                  setProfile({ ...profile, bahan_makanan_id: e })
-                }
-                required
-                isDisabled={getIsDisable}
-              />
-              <p className="text-xs font-normal text-contentPrimarySubtle">
-                Pilih satu atau lebih
-              </p>
+              <div className="my-1">Bahan Makanan yang Tidak Disukai</div>
+              <div className="border border-borderPrimary rounded-lg overflow-hidden custom-input">
+                <Select
+                  isMulti
+                  options={bahanMakanan}
+                  value={profile.bahan_makanan_id}
+                  onChange={(option) =>
+                    setProfile({ ...profile, bahan_makanan_id: option })
+                  }
+                  placeholder="Pilih bahan makanan"
+                  isDisabled={getIsDisable}
+                  styles={{
+                    control: (baseStyles, state) => ({
+                      ...baseStyles,
+                      border: "none",
+                      outline: "none",
+                      boxShadow: "none",
+                      minHeight: "unset",
+                    }),
+                  }}
+                />
+              </div>
             </div>
 
-            {getIsDisable ? (
-              <Link to="/rekomendasi">
-                <button className="w-full py-2 bg-backgroundBrand rounded-lg text-white text-base font-medium">
-                  Tutup
-                </button>
-              </Link>
-            ) : (
-              <div className="flex justify-between items-center gap-x-6">
-                <button
-                  className=" w-full py-2 bg-contentDisabled rounded-lg text-contentBrand text-base font-medium"
-                  onClick={() => setIsDisable(true)}
-                >
-                  Kembali
-                </button>
-
-                <button
-                  type="submit"
-                  className=" w-full py-2 bg-backgroundBrand rounded-lg text-white text-base font-medium"
-                >
-                  Update
-                </button>
-              </div>
+            {!getIsDisable && (
+              <button
+                type="submit"
+                className="mt-6 w-full sm:w-auto bg-contentBrand px-6 py-2 rounded-lg text-white font-medium"
+              >
+                Simpan
+              </button>
             )}
           </form>
+        </div>
+        <div className="flex justify-between items-center">
+          <Link to="/beranda" className="text-contentBrand">
+            &larr; Kembali
+          </Link>
         </div>
       </div>
     </div>
