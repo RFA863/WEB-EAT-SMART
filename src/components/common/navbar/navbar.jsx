@@ -1,12 +1,13 @@
 import { useCookies } from "react-cookie";
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function NavbarComponent({ setActiveContent, isLogin, getProfile }) {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   //   const [isLogin, setIsLogin] = useState(false);
-  const [cookies] = useCookies(["user"]);
+  const [cookies, removeCookie] = useCookies(["user", ["token"]]);
 
   // console.log(getProfile);
   const toggleMenu = () => {
@@ -17,6 +18,25 @@ function NavbarComponent({ setActiveContent, isLogin, getProfile }) {
     return location.pathname === path
       ? "text-contentBrand"
       : "text-contentPrimarySubtle";
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const logout = () => {
+    // Hapus cookie yang berisi informasi pengguna
+    removeCookie("user");
+    removeCookie("token"); // Misalnya jika ada token
+
+    // Jika menggunakan local storage, kamu bisa hapus juga seperti ini:
+    // localStorage.removeItem('user');
+    // localStorage.removeItem('token');
+
+    // Arahkan pengguna ke halaman login
+    navigate("/masuk");
   };
 
   //   useEffect(() => {
@@ -73,35 +93,39 @@ function NavbarComponent({ setActiveContent, isLogin, getProfile }) {
             id="navbar-solid-bg"
           >
             <ul className="flex flex-col items-center font-medium mt-2 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row">
-              <li>
-                <Link
-                  to="/"
-                  onClick={() => {
-                    setActiveContent("beranda");
-                    toggleMenu();
-                  }}
-                  className={`block py-2 px-3 md:p-0 rounded md:bg-transparent md:border-0 ${isActive(
-                    "/"
-                  )}`}
-                  aria-current="page"
-                >
-                  Beranda
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/rekomendasi"
-                  onClick={() => {
-                    setActiveContent("rekomendasi");
-                    toggleMenu();
-                  }}
-                  className={`block py-2 px-3 md:p-0 rounded md:bg-transparent md:border-0 ${isActive(
-                    "/rekomendasi"
-                  )}`}
-                >
-                  Rekomendasi
-                </Link>
-              </li>
+              {cookies.user ? (
+                <li>
+                  <Link
+                    to="/rekomendasi"
+                    onClick={() => {
+                      setActiveContent("rekomendasi");
+                      toggleMenu();
+                    }}
+                    className={`block py-2 px-3 md:p-0 rounded md:bg-transparent md:border-0 ${isActive(
+                      "/rekomendasi"
+                    )}`}
+                  >
+                    Rekomendasi
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <Link
+                    to="/"
+                    onClick={() => {
+                      setActiveContent("beranda");
+                      toggleMenu();
+                    }}
+                    className={`block py-2 px-3 md:p-0 rounded md:bg-transparent md:border-0 ${isActive(
+                      "/"
+                    )}`}
+                    aria-current="page"
+                  >
+                    Beranda
+                  </Link>
+                </li>
+              )}
+
               <li>
                 <Link
                   to="/smartchat"
@@ -117,16 +141,51 @@ function NavbarComponent({ setActiveContent, isLogin, getProfile }) {
                 </Link>
               </li>
               {cookies.user ? (
-                <Link to="/settings">
-                  <img
-                    src={`https://ui-avatars.com/api/?name=${cookies.user}&background=4e73df&color=ffffff&size=150`}
-                    className="rounded-full"
-                    style={{ opacity: 0.8 }}
-                    width="40"
-                    height="40"
-                    alt="Avatar"
-                  />
-                </Link>
+                <div className="relative inline-block text-left">
+                  <div>
+                    <img
+                      src={`https://ui-avatars.com/api/?name=${cookies.user}&background=4e73df&color=ffffff&size=150`}
+                      className="rounded-full"
+                      style={{ opacity: 0.8 }}
+                      width="40"
+                      height="40"
+                      alt="Avatar"
+                      onClick={toggleDropdown}
+                    />
+                  </div>
+                  {isOpen && (
+                    <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                      <div
+                        className="py-1"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="options-menu"
+                      >
+                        <a
+                          href="/settings"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          role="menuitem"
+                        >
+                          Profile
+                        </a>
+                        {/* <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          role="menuitem"
+                        >
+                          Settings
+                        </a> */}
+                        <a
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          role="menuitem"
+                          onClick={logout}
+                        >
+                          Logout
+                        </a>
+                      </div>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <div className="flex space-x-4">
                   <Link to="/masuk">
