@@ -34,7 +34,7 @@ To run this application in your local development environment, follow these step
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/RFA863/web-eat-smart.git](https://github.com/RFA863/web-eat-smart.git)
+    git clone https://github.com/RFA863/web-eat-smart.git
     cd WEB-EAT-SMART
     ```
 
